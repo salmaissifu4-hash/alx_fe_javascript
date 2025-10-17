@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Quote Generator</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; max-width:900px; margin:2rem auto; padding:1rem; line-height:1.4; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:1rem; }
+    #quoteDisplay { border-radius:8px; padding:1.25rem; margin:1rem 0; background:#f7f7f7; min-height:80px; display:flex; flex-direction:column; justify-content:center; }
+    .meta { font-size:.9rem; color:#444; margin-top:.5rem; }
+    .controls { display:flex; gap:.5rem; flex-wrap:wrap; }
+    .form-row { display:flex; gap:.5rem; margin-top:.5rem; }
+    input[type="text"] { padding:.5rem; border-radius:6px; border:1px solid #ddd; min-width:200px; }
+    button { padding:.5rem .75rem; border-radius:8px; border:1px solid #bbb; background: #fff; cursor:pointer; }
+    button.primary { background:#0b79d0; color:#fff; border-color:#076aa8; }
+    #notification { margin-top:.75rem; padding:.6rem; border-radius:6px; display:none; background:#fff4cc; border:1px solid #ffd66b; }
+    #changesList { margin-top:.5rem; font-size:.9rem; max-height:200px; overflow:auto; background:#fff; padding:.5rem; border:1px solid #eee; border-radius:6px; display:none; }
+    footer { margin-top:1.25rem; color:#666; font-size:.9rem; }
+    select { padding:.45rem; border-radius:6px; border:1px solid #ddd; }
+    small.note { color:#666; display:block; margin-top:.4rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dynamic Quote Generator</h1>
+    <div>
+      <label for="categoryFilter">Filter:</label>
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+      </select>
+    </div>
+  </header>
+
+  <div id="quoteDisplay">
+    <div id="quoteText">Press "Show New Quote" to begin.</div>
+    <div class="meta" id="quoteMeta"></div>
+  </div>
+
+  <div class="controls">
+    <button id="newQuote" class="primary">Show New Quote</button>
+    <button id="showAddForm">Add Quote</button>
+    <button id="exportJson">Export JSON</button>
+    <input id="importFile" type="file" accept=".json" />
+    <button id="syncNow">Sync Now</button>
+    <button id="undoSync" style="display:none;">Revert Last Sync</button>
+  </div>
+
+  <div id="addQuoteArea" style="margin-top:1rem; display:none;">
+    <div>
+      <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+      <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+      <button id="addQuoteBtn">Add Quote</button>
+    </div>
+    <small class="note">Tip: categories help group quotes. Add new categories freely.</small>
+  </div>
+
+  <div id="notification"></div>
+  <div id="changesList"></div>
+
+  <footer>
+    <small>Last viewed quote is saved in session storage. Categories and quotes persist in localStorage.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
